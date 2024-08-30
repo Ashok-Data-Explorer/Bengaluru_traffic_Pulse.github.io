@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Traffic Congestion Prediction</title>
+    <link rel="stylesheet" href="static/styles.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Traffic Congestion Level Predictor</h1>
+        
+        <!-- Data Description Section in Paragraph Format -->
+        <section class="data-description">
+            <h2>Dataset Description</h2>
+            <p>This dataset includes several features that contribute to traffic congestion prediction. The data points include the date when the traffic data was recorded, the name of the area or locality, and the specific road or intersection name within the area. Traffic Volume represents the number of vehicles passing through the road or intersection, while Average Speed reflects the average speed of vehicles in kilometers per hour (km/h). The Travel Time Index is an index representing the travel time relative to a baseline, and the Congestion Level is a numerical representation of the level of congestion. Road Capacity Utilization indicates the percentage of road capacity being utilized. Incident Reports capture the number of reported incidents or accidents, and Environmental Impact is a measure of the environmental consequences of traffic. Public Transport Usage shows the level of usage of public transportation in the area, and Traffic Signal Compliance measures adherence to traffic signals. Parking Usage reveals the level of parking space utilization, while Pedestrian and Cyclist Count records the number of pedestrians and cyclists. Finally, the Weather Conditions during data recording and any Roadwork or Construction Activity are also considered to assess their impact on traffic congestion.</p>
+        </section>
+
+        <!-- Input Form Section -->
+        <form action="/" method="post">
+            <fieldset>
+                <legend>Enter Traffic Data</legend>
+
+                <label for="date">Date:</label>
+                <input type="date" id="date" name="Date" aria-label="Date of Traffic Data" required>
+
+                <label for="area">Area Name:</label>
+                <input type="text" id="area" name="Area Name" aria-label="Name of the Area or Locality" required>
+
+                <label for="road">Road/Intersection Name:</label>
+                <input type="text" id="road" name="Road/Intersection Name" aria-label="Name of the Road or Intersection" required>
+
+                <label for="volume">Traffic Volume:</label>
+                <input type="number" id="volume" name="Traffic Volume" aria-label="Number of Vehicles Passing Through" required>
+
+                <label for="speed">Average Speed:</label>
+                <input type="number" step="0.1" id="speed" name="Average Speed" aria-label="Average Speed in Kilometers per Hour" required>
+
+                <label for="travel_time">Travel Time Index:</label>
+                <input type="number" step="0.1" id="travel_time" name="Travel Time Index" aria-label="Travel Time Index" required>
+
+                <label for="capacity_utilization">Road Capacity Utilization:</label>
+                <input type="number" step="0.1" id="capacity_utilization" name="Road Capacity Utilization" aria-label="Percentage of Road Capacity Utilized" required>
+
+                <label for="incident_reports">Incident Reports:</label>
+                <input type="number" id="incident_reports" name="Incident Reports" aria-label="Number of Reported Incidents or Accidents" required>
+
+                <label for="environmental_impact">Environmental Impact:</label>
+                <input type="number" step="0.1" id="environmental_impact" name="Environmental Impact" aria-label="Measure of Environmental Impact" required>
+
+                <label for="public_transport">Public Transport Usage:</label>
+                <input type="number" step="0.1" id="public_transport" name="Public Transport Usage" aria-label="Level of Public Transport Usage" required>
+
+                <label for="signal_compliance">Traffic Signal Compliance:</label>
+                <input type="number" step="0.1" id="signal_compliance" name="Traffic Signal Compliance" aria-label="Measure of Traffic Signal Compliance" required>
+
+                <label for="parking_usage">Parking Usage:</label>
+                <input type="number" step="0.1" id="parking_usage" name="Parking Usage" aria-label="Level of Parking Space Utilization" required>
+
+                <label for="pedestrian_count">Pedestrian and Cyclist Count:</label>
+                <input type="number" id="pedestrian_count" name="Pedestrian and Cyclist Count" aria-label="Number of Pedestrians and Cyclists" required>
+
+                <label for="weather">Weather Conditions:</label>
+                <input type="text" id="weather" name="Weather Conditions" aria-label="Weather Conditions During Data Recording" required>
+
+                <label for="roadwork">Roadwork and Construction Activity:</label>
+                <input type="text" id="roadwork" name="Roadwork and Construction Activity" aria-label="Presence of Roadwork or Construction Activity" required>
+
+                <button type="submit">Predict Congestion Level</button>
+            </fieldset>
+        </form>
+
+        {% if prediction is not none %}
+            <div class="result">
+                <h2>Predicted Congestion Level</h2>
+                <p>{{ prediction }}</p>
+            </div>
+        {% endif %}
+        
+        <!-- Footer with Copyright Notice -->
+        <footer>
+            <p>&copy; 2024 Ashok.C All rights reserved.</p>
+        </footer>
+    </div>
+
+    <script>
+        // Real-time validation feedback (Example: ensure positive numbers)
+        const inputs = document.querySelectorAll('input[type="number"]');
+        inputs.forEach(input => {
+            input.addEventListener('input', function () {
+                if (this.value < 0) {
+                    this.setCustomValidity('Value must be positive');
+                } else {
+                    this.setCustomValidity('');
+                }
+            });
+        });
+
+        // Sticky submit button for mobile
+        const button = document.querySelector('button[type="submit"]');
+        window.addEventListener('scroll', function () {
+            if (window.innerWidth <= 480) {
+                button.style.position = 'fixed';
+                button.style.bottom = '20px';
+                button.style.right = '20px';
+                button.style.width = 'calc(100% - 40px)';
+            } else {
+                button.style.position = 'static';
+                button.style.width = '100%';
+            }
+        });
+    </script>
+</body>
+</html>
